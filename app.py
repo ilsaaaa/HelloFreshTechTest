@@ -1,5 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, Blueprint
 from flask_pymongo import PyMongo, ObjectId
+from flask_cors import CORS, cross_origin
+
 import json
 
 #Data-Base Access
@@ -7,14 +9,31 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb+srv://admin:password123!@cluster0.tvfrq.mongodb.net/MenuPlan?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 
-#Calling collection(tables)
-db_operations = mongo.db.WeeklyMenu
-db_operations = mongo.db.Reviews
-db_operations = mongo.db.Recipies
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
-# Recipe Methods
 
-#retrive data
+#Retrieve All data from one collection
+@app.route('/recipe', methods=['GET'])
+@cross_origin()
+def getRecipes():
+    recipes = []
+    for recipe in mongo.db.Recipes.find():
+        try:
+            recipes.append({
+                "_id": str(recipe["_id"]),
+                "itemName": recipe['itemName'],
+                "ingredients": recipe['ingredients'],
+                "instructions": recipe['instructions']
+            })
+        except:
+            continue
+    print(recipes)
+
+    return {'result' : json.loads(json.dumps(list(recipes)))} #converts list into json 
+
+
+#Retrieve the recipe ID 
 @app.route('/recipe/<recipeID>', methods=['GET'])
 def getRecipe(recipeID):
     print(recipeID)
@@ -26,6 +45,7 @@ def getRecipe(recipeID):
 
 #The POST method sends data to the server and creates a new resource
 @app.route('/recipe', methods=['POST'])
+@cross_origin()
 def createRecipe():
     data = json.loads(request.data)
     print(data["itemName"])
@@ -39,16 +59,17 @@ def createRecipe():
     res = mongo.db.Recipes.insert_one(recipeObject)
     print(res)
     result = {'result' : 'Created successfully'}
+    
     return result
 
 #Delete Recipes ID 
 @app.route('/recipe/<recipeID>', methods=['DELETE'])
 def deleteRecipe(recipeID):
     print(recipeID)
-    db.Recipes.delete_one({
-        "_id": recipeID
+    mongo.db.Recipes.delete_one({
+        "_id": ObjectId(recipeID)
     })
-    return {'result' : 'Created successfully'}
+    return getRecipes()
 
 # WeeklyMenu methods- The GET method is used to retrieve data from the server
 @app.route('/weeklyMenu/<weekNumber>', methods=['GET'])

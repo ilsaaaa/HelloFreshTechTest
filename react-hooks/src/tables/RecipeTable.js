@@ -1,40 +1,68 @@
-import React from 'react'
-import './RecipeTable.css'
+import React, { useState, useEffect } from "react";
+import "./RecipeTable.css";
 
-const RecipeTable = (props) => (
-  <table>
-    <thead>
-      <tr>
-      <th> Recipe ID </th>
-        <th> Recipe Name</th>
-        <th>Actions</th>
-        <th> Select</th>
-      </tr>
-    </thead>
-    <tbody>
-      {props.recipes.length > 0 ? (
-        props.recipes.map((recipe) => (
-          <tr key={recipe.id}>
-            <td>{recipe.id}</td>
-            <td>{recipe.name}</td>
-            <td>
-              <button className="button muted-button">Update</button>
-              
-              {/* deletes the recipe in the table */}
-              <button 
-              className="button muted-button"
-              onClick={() => props.deleteRecipe(recipe.id)}
-              > Delete</button>
-            </td>
-          </tr>
-        ))
-      ) : (
+const RecipeTable = (props) => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/recipe", {
+      method: "GET",
+    })
+      .then((result) => result.json())
+      .then((data) => {
+        console.log(data.result);
+        setRecipes(data.result);
+      });
+  }, []);
+
+  const deleteRecipe = (id) => {
+    //call the delete API here, pass in the ID
+
+    return fetch(`http://localhost:5000/recipe/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRecipes(data.result);
+      });
+  };
+
+  return (
+    <table className="table">
+      <thead>
         <tr>
-          <td colSpan={3}>No recipes</td>
+          <th> Recipe Name</th>
+          <th>Actions</th>
+          <th> Select</th>
         </tr>
-      )}
-    </tbody>
-  </table>
-)
+      </thead>
+      <tbody>
+        {recipes.length > 0 ? (
+          recipes.map((recipe) => (
+            <tr key={recipe._id}>
+              <td>{recipe.itemName}</td>
+              <td>
+                <button className="btn btn-primary muted-button">Update</button>
 
-export default RecipeTable
+                {/* deletes the recipe in the table */}
+                <button
+                  className="btn btn-secondary muted-button"
+                  onClick={() => deleteRecipe(recipe._id)}
+                >
+                  {" "}
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={3}>No recipes</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  );
+};
+
+export default RecipeTable;
