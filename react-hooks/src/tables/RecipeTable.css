@@ -1,0 +1,10 @@
+table, th, td, thead {
+    padding: 10px;
+    padding-left: 10px;
+    border: solid;
+  }
+
+button{
+    margin: 10px;
+    padding: 10px;
+}
