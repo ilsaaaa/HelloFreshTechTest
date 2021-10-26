@@ -13,7 +13,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-#Retrieve All data from one collection
+#Retrieve All data from one the recipe table
 @app.route('/recipe', methods=['GET'])
 @cross_origin()
 def getRecipes():
@@ -24,13 +24,17 @@ def getRecipes():
                 "_id": str(recipe["_id"]),
                 "itemName": recipe['itemName'],
                 "ingredients": recipe['ingredients'],
-                "instructions": recipe['instructions']
+                "instructions": recipe['instructions'],
+                "nutritionalInfo": recipe['nutritionalInfo'],
+                "classification": recipe['classification'],
             })
         except:
             continue
     print(recipes)
 
-    return {'result' : json.loads(json.dumps(list(recipes)))} #converts list into json 
+    #json. loads() takes in a string and returns a json object.
+    #json. dumps() takes in a json object and returns a string.
+    return {'result' : json.loads(json.dumps(list(recipes)))}
 
 
 #Retrieve the recipe ID 
@@ -47,13 +51,17 @@ def getRecipe(recipeID):
 @app.route('/recipe', methods=['POST'])
 @cross_origin()
 def createRecipe():
-    data = json.loads(request.data)
+    #parse a valid JSON string and convert it into a Python Dictionary
+    data = json.loads(request.data) 
     print(data["itemName"])
 
     recipeObject = {
         "itemName": data["itemName"],
         "ingredients": data["ingredients"],
         "instructions": data["instructions"],
+        "nutritionalInfo": data['nutritionalInfo'],
+        "classification": data['classification'],
+        
     }
 
     res = mongo.db.Recipes.insert_one(recipeObject)

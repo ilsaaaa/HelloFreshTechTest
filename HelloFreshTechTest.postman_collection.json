@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "ca609574-ad10-4d7a-8b66-a43686d13faa",
+		"name": "HelloFreshTechTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Recipe",
+			"item": [
+				{
+					"name": "createRecipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemName\": \"biryani\",\r\n    \"ingredients\": [\r\n        {\r\n            \"itemName\": \"elaichi\",\r\n            \"quantity\": 0\r\n        },\r\n        {\r\n            \"itemName\": \"aloo\",\r\n            \"quantity\": 3\r\n        }\r\n    ],\r\n    \"instructions\": [\r\n        \"Cook the rice\",\r\n        \"Add the potatoes\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/recipe",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"recipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRecipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemName\": \"biryani\",\r\n    \"ingredients\": [\r\n        {\r\n            \"itemName\": \"elaichi\",\r\n            \"quantity\": 0\r\n        },\r\n        {\r\n            \"itemName\": \"aloo\",\r\n            \"quantity\": 3\r\n        }\r\n    ],\r\n    \"instructions\": [\r\n        \"Cook the rice\",\r\n        \"Add the potatoes\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/recipe",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"recipe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Weekly Menu",
+			"item": [
+				{
+					"name": "Update Weekly Menu",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/weeklyMenu",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"weeklyMenu"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

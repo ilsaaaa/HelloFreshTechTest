@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 
+//values of the recipe form is set.
 const NewRecipeForm = (props) => {
-  const recipeFormState = { itemName: "", ingredients: "", instructions: "" };
+  const recipeFormState = { itemName: "", ingredients: "", instructions: "", nutritionalInfo: "", classification: "" };
+
   const [recipe, setRecipe] = useState(recipeFormState);
 
-  const handleInputChange = (event, name) => {
-    const { value } = event.target;
-    setRecipe({ ...recipe, [name]: value });
-  };
+  //this const is used to make changess
+const handleInputChange = (event, name) => {
+  const { value } = event.target;
+  setRecipe({ ...recipe, [name]: value });
+};
 
   //if either of the field are not entered then return a alert 
   const submitRecipe = async () => {
-    if (!recipe.itemName || !recipe.ingredients || !recipe.instructions) {
+    if (!recipe.itemName || !recipe.ingredients || !recipe.instructions  || !recipe.nutritionalInfo || !recipe.classification) {
         alert('Please enter all fields')
         return;
     }
@@ -56,7 +59,21 @@ const NewRecipeForm = (props) => {
         placeholder="Instructions"
         aria-label="Instructions"
       />
-
+      <input
+        type="text"
+        onChange={(event) => handleInputChange(event, "nutritionalInfo")}
+        class="form-control"
+        placeholder="Nutritional Information"
+        aria-label="Nutritional Informartion"
+      />
+      <input
+        type="text"
+        onChange={(event) => handleInputChange(event, "classification")}
+        class="form-control"
+        placeholder="Classification"
+        aria-label="Classification"
+      />
+      
       <button
         onClick={() => submitRecipe()}
         type="button"

@@ -5,13 +5,14 @@ import './App.css'
 
 const App = () => {
 
+  //This is example data 
   const RecipeData = [
     { id: 1, name: 'Chicken'  },
     { id: 2, name: 'Beef' },
     { id: 3, name: 'Lamb' },
   ]
   
-
+  //using a setter 
   const [recipes, setRecipe] = useState(RecipeData)
   const [currRoute, setRoute] = useState('viewRecipes')
 
@@ -21,6 +22,7 @@ const App = () => {
   }
 
   return (
+  //lay-out of the application
     <div className="container">
       <h1>MENU PLANNING APP</h1>
       <div className="flex-row mt-5">

@@ -16,8 +16,6 @@ const RecipeTable = (props) => {
   }, []);
 
   const deleteRecipe = (id) => {
-    //call the delete API here, pass in the ID
-
     return fetch(`http://localhost:5000/recipe/${id}`, {
       method: "DELETE",
     })
@@ -33,7 +31,6 @@ const RecipeTable = (props) => {
         <tr>
           <th> Recipe Name</th>
           <th>Actions</th>
-          <th> Select</th>
         </tr>
       </thead>
       <tbody>
