@@ -3,7 +3,6 @@ import React, { useState } from "react";
 //values of the recipe form is set.
 const NewRecipeForm = (props) => {
   const recipeFormState = { itemName: "", ingredients: "", instructions: "", nutritionalInfo: "", classification: "" };
-
   const [recipe, setRecipe] = useState(recipeFormState);
 
   //this const is used to make changess

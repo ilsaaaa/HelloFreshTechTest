@@ -49,6 +49,15 @@ const RecipeTable = (props) => {
                   {" "}
                   Delete
                 </button>
+                <button
+                className="btn btn-secondary muted-button"
+                onClick={() => props.setUpdate(false)}
+                >
+                  {" "}
+                  Update
+                  </button>
+                  
+                
               </td>
             </tr>
           ))
