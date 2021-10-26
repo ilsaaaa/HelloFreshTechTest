@@ -48,10 +48,10 @@ def getRecipe(recipeID):
     return {'result' : 'Created successfully'}
 
 #The POST method sends data to the server and creates a new resource
+# #parse a valid JSON string and convert it into a Python Dictionary
 @app.route('/recipe', methods=['POST'])
 @cross_origin()
 def createRecipe():
-    #parse a valid JSON string and convert it into a Python Dictionary
     data = json.loads(request.data) 
     print(data["itemName"])
 
@@ -79,12 +79,14 @@ def deleteRecipe(recipeID):
     })
     return getRecipes()
 
-@app.route('/recipe', method=['PATCH'])
+# # Update recipe
+# @app.route('/recipe', method=['PATCH'])
+# def recipe
+
 
 # WeeklyMenu methods- The GET method is used to retrieve data from the server
+# #The admin selects/finds a weekNumber with the weeks recipes
 @app.route('/weeklyMenu/<weekNumber>', methods=['GET'])
-
-#The admin selects/finds a weekNumber with the weeks recipes
 def getWeeklyMenu(weekNumber):
     weeklyMenu = mongo.db.WeeklyMenu.find({
         "week": 5
@@ -95,7 +97,6 @@ def getWeeklyMenu(weekNumber):
 
 #contain the specific changes to the resource
 @app.route('/weeklyMenu', methods=['PATCH'])
-#
 def updateWeekly():
     data = json.loads(request.data)
     weekNumber = data["week"]

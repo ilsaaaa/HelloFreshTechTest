@@ -39,25 +39,17 @@ const RecipeTable = (props) => {
             <tr key={recipe._id}>
               <td>{recipe.itemName}</td>
               <td>
-                <button className="btn btn-primary muted-button">Update</button>
+                <button className="btn btn-primary muted-button"onClick={() => props.setUpdate(false)}
+                >Update</button>
 
                 {/* deletes the recipe in the table */}
                 <button
-                  className="btn btn-secondary muted-button"
+                  className="btn btn-danger muted-button"
                   onClick={() => deleteRecipe(recipe._id)}
                 >
                   {" "}
                   Delete
                 </button>
-                <button
-                className="btn btn-secondary muted-button"
-                onClick={() => props.setUpdate(false)}
-                >
-                  {" "}
-                  Update
-                  </button>
-                  
-                
               </td>
             </tr>
           ))

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import RecipeTable from './tables/RecipeTable'
 import NewRecipeForm from './tables/NewRecipeform' 
+import UpdateRecipeForm from './tables/UpdateRecipeform' 
 import './App.css'
 
 const App = () => {
@@ -57,9 +58,17 @@ const App = () => {
         {currRoute === 'viewRecipes' && (
             <div className="flex-large viewRecipe">
                 <h2 className="text-center">View Recipes</h2>
-                <RecipeTable recipes={recipes} deleteRecipe={deleteRecipe} updateRow={updateRow} />
+                <RecipeTable recipes={recipes} deleteRecipe={deleteRecipe} updateRow={updateRow} setUpdate={() => setRoute('updateRecipes')} />
                 <button type="button" className="btn btn-primary" onClick={() => setRoute('addRecipes')}>Add Recipe</button>
             </div>          
+        )}
+
+        {currRoute === 'updateRecipes' && (
+            <div className="flex-large addRecipe">
+                <h2 className="text-center">Update Recipe</h2>
+                <UpdateRecipeForm recipe={null}  /> 
+                <button type="button" className="btn btn-primary" onClick={() => setRoute('viewRecipes')}>View all recipes</button>
+            </div>  
         )}
       </div>
     </div>
