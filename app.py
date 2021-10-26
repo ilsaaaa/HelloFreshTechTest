@@ -81,7 +81,7 @@ def deleteRecipe(recipeID):
 
 # # Update recipe
 # @app.route('/recipe', method=['PATCH'])
-# def recipe
+# def getrecipe()
 
 
 # WeeklyMenu methods- The GET method is used to retrieve data from the server

@@ -17,6 +17,12 @@ const App = () => {
   const [recipes, setRecipe] = useState(RecipeData)
   const [currRoute, setRoute] = useState('viewRecipes')
 
+  const updateRecipe = (recipe) => {
+    setRoute("updateRecipes")
+    setCurrentRecipe(recipe)
+    
+  }
+
   // set up setter for update and it's form state
   const [update, setUpdate] = useState(false)
   const updateRecipeFormState = { itemName: "", ingredients: "", instructions: "", nutritionalInfo: "", classification: "" }
@@ -25,16 +31,9 @@ const App = () => {
   //When Update is selected on a user, it should turn on Update mode, and set the current recipe
   const updateRow = (recipe) => {
     setUpdate(true)
-  
     setCurrentRecipe({ itemName: recipe.itemName, ingredients: recipe.ingredients, instructions: recipe.instructions, nutritionalInfo: recipe.nutritionalInfo, classification: recipe.classification })
   }
 
-  //the update function needs to map through the array, and update the user that matches the ID passed through
-  const updateRecipe = (id, updatedRecipe) => {
-    setUpdate(false)
-  
-    setRecipe(recipes.map((recipe) => (recipe.id === id ? updatedRecipe : recipe))) //ternary operation 
-  }
 
   /* Calling out const to delete Recipe */
   const deleteRecipe = (id) => {
@@ -58,7 +57,7 @@ const App = () => {
         {currRoute === 'viewRecipes' && (
             <div className="flex-large viewRecipe">
                 <h2 className="text-center">View Recipes</h2>
-                <RecipeTable recipes={recipes} deleteRecipe={deleteRecipe} updateRow={updateRow} setUpdate={() => setRoute('updateRecipes')} />
+                <RecipeTable recipes={recipes} deleteRecipe={deleteRecipe} updateRow={updateRow} setUpdate={(recipe) => updateRecipe(recipe)} />
                 <button type="button" className="btn btn-primary" onClick={() => setRoute('addRecipes')}>Add Recipe</button>
             </div>          
         )}
@@ -66,7 +65,7 @@ const App = () => {
         {currRoute === 'updateRecipes' && (
             <div className="flex-large addRecipe">
                 <h2 className="text-center">Update Recipe</h2>
-                <UpdateRecipeForm recipe={null}  /> 
+                <UpdateRecipeForm updateRow={updateRow} currentRecipe={currentRecipe}/> 
                 <button type="button" className="btn btn-primary" onClick={() => setRoute('viewRecipes')}>View all recipes</button>
             </div>  
         )}

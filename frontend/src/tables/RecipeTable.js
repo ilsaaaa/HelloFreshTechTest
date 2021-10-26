@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RecipeTable.css";
 
+
 const RecipeTable = (props) => {
   const [recipes, setRecipes] = useState([]);
 
@@ -39,7 +40,7 @@ const RecipeTable = (props) => {
             <tr key={recipe._id}>
               <td>{recipe.itemName}</td>
               <td>
-                <button className="btn btn-primary muted-button"onClick={() => props.setUpdate(false)}
+                <button className="btn btn-primary muted-button"onClick={() => props.setUpdate(recipe)}
                 >Update</button>
 
                 {/* deletes the recipe in the table */}

@@ -18,7 +18,7 @@ const handleInputChange = (event, name) => {
         return;
     }
 
-
+    //linking APIs
     const result = await fetch("http://localhost:5000/recipe", {
       method: "POST",
       headers: {
@@ -28,13 +28,14 @@ const handleInputChange = (event, name) => {
       body: JSON.stringify(recipe),
     });
 
+    //if all the data are entered
     if (result.status === 200) {
         alert('Succesfully added new recipe')
         setRecipe(recipeFormState)
     }
     console.log("test", result);
   };
-
+  
   return (
     <form onSubmit={(event) => event.preventDefault()}>
       <input
